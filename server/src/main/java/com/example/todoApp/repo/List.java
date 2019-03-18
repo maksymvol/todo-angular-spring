@@ -3,8 +3,10 @@ package com.example.todoApp.repo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(schema = "todoapp", name = "list")
 public class List {
     @Id
     @GeneratedValue

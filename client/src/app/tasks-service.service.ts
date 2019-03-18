@@ -17,7 +17,7 @@ export class TasksServiceService {
   tasks: Task[] = [new Task(0, 'name', -1, false)];
   lists: List[] = [new List(0, 'name', false)];
 
-  ROOT_URL = 'http://localhost:8080';
+  ROOT_URL = 'http://localhost:4001';
 
   constructor(private http: HttpClient, private router: Router) {
     this.getTasksFromDB().subscribe(data => this.tasks = data);

@@ -7,10 +7,10 @@ import lombok.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Table(schema = "todoapp", name = "task")
 public class Task {
     @Id
     @GeneratedValue
@@ -18,6 +18,15 @@ public class Task {
     private @NonNull String name;
     private @NonNull int list;
     private boolean checked;
+
+    public Task() {
+    }
+
+    public Task(@NonNull String name, @NonNull int list, boolean checked) {
+        this.name = name;
+        this.list = list;
+        this.checked = checked;
+    }
 
     public String getName() {
         return name;
