@@ -158,7 +158,7 @@ export class TasksServiceService {
   }
 
   getListSortedByPin() {
-    return this.lists.sort(function(x, y) {return (x.pinned === y.pinned)? 0 : x? -1 : 1;});
+    return this.lists.sort(function(x, y) {return (x.pinned === y.pinned) ? 0 : x.pinned ? -1 : 1; });
   }
 
   changeCurrentListIdByName(name) {
