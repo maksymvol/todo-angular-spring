@@ -24,7 +24,7 @@ public class TodoAppApplication {
 			Stream.of("Task", "Some_task", "Another_task", "task...").forEach(name -> {
 				Task task = new Task();
 				task.setName(name);
-				task.setList(1);
+				task.setList(5);
 				task.setChecked(false);
 				taskRepository.save(task);
 			});

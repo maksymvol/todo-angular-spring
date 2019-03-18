@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface ListRepository extends JpaRepository<List, Long> {
 
-    Task findByName(String name);
+    List findByName(String name);
 }

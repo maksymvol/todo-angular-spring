@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
@@ -28,23 +27,28 @@ public class TaskController {
     }
 
     @PostMapping("/lists")
-    public Task post(@RequestBody List list) {
+    public List post(@RequestBody List list) {
         listRepository.save(list);
         return listRepository.findByName(list.getName());
     }
 
     //TODO TASKS
 
-    /*@GetMapping("/lists")
+    @GetMapping("/tasks")
     public Collection<Task> tasksInCurrentList() {
-        return taskRepository.findAll().stream()
-                .filter(task -> task.getList() == 1)
-                .collect(Collectors.toList());
+        return taskRepository.findAll();
     }
 
-    @PostMapping("/lists")
+    @PostMapping("/tasks")
     public Task post(@RequestBody Task task) {
         taskRepository.save(task);
         return taskRepository.findByName(task.getName());
-    }*/
+    }
+
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.DELETE)
+    public Task delete(@PathVariable("id") Long itemId) {
+        Task task = taskRepository.findById(itemId).orElse(new Task());
+        taskRepository.deleteById(itemId);
+        return task;
+    }
 }
