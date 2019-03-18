@@ -1,0 +1,37 @@
+li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: ghostwhite;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+li:hover {
+  background: #ddd;
+}
+
+.task-delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px 15px 12px 15px;
+}
+
+.task-delete-button:hover {
+  background: #f44336;
+  color: white;
+}
+
+li.currentList {
+  background: #888;
+  color: #fff;
+}
+
+li.currentList::before {
+  content: '•';
+  position: absolute;
+  top: 10px;
+  left: 16px;
+}
+

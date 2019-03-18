@@ -1,0 +1,17 @@
+<li *ngIf="list.id === tasksService.currentListId else notCurrentList" [class.currentList]="true">
+  {{list.name}}
+  <span class="task-delete-button"
+        (click)="deleteListClicked()">
+    ×
+  </span>
+</li>
+
+<ng-template #notCurrentList>
+  <li [class.currentList]="false">
+    {{list.name}}
+    <span class="task-delete-button"
+          (click)="deleteListClicked()">
+    ×
+  </span>
+  </li>
+</ng-template>

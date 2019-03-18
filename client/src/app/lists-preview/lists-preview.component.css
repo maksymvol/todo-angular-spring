@@ -1,0 +1,63 @@
+#app-container {
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+#app-name {
+  text-align: center;
+}
+
+#tasks-current-list-container {
+  flex: 1;
+}
+
+#lists-preview-container {
+  padding-left: 10%;
+  padding-right: 10%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+#list-name {
+  text-align: center;
+}
+
+ul li {
+  padding-bottom: 6px;
+}
+
+#card {
+  border: 1px solid #d3d3d3;
+  border-radius: .25rem;
+  background: lightyellow;
+  font: icon;
+  cursor: pointer;
+}
+
+#card-header {
+  margin-top: -22px;
+  background: royalblue;
+}
+
+#more {
+  margin: 47%;
+  font-size: 30px;
+}
+
+.pin__a {
+  position: relative;
+}
+
+.pin {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.pin[data-pin=true] {
+  opacity: 1;
+}
