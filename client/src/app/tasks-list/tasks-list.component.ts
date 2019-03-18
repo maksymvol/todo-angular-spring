@@ -24,7 +24,8 @@ export class TasksListComponent implements OnInit {
     if (this.inputValue === '') {
       alert('Please type your task before adding it');
     } else {
-      this.tasksService.addNewTask(this.inputValue);
+      this.taskService.addNewTask(this.inputValue).subscribe(data => console.log(data));
+      // this.tasksService.addNewTask(this.inputValue);
       this.inputValue = '';
     }
   }
