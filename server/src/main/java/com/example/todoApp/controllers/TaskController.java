@@ -1,7 +1,5 @@
 package com.example.todoApp.controllers;
 
-import com.example.todoApp.repo.List;
-import com.example.todoApp.repo.ListRepository;
 import com.example.todoApp.repo.Task;
 import com.example.todoApp.repo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +12,10 @@ import java.util.Collection;
 public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
-    @Autowired
-    private ListRepository listRepository;
 
     public TaskController(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
-
-    @GetMapping("/lists")
-    public Collection<List> getLists() {
-        return listRepository.findAll();
-    }
-
-    @PostMapping("/lists")
-    public List post(@RequestBody List list) {
-        listRepository.save(list);
-        return listRepository.findByName(list.getName());
-    }
-
-    //TODO TASKS
 
     @GetMapping("/tasks")
     public Collection<Task> tasksInCurrentList() {
