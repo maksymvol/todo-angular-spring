@@ -16,16 +16,16 @@ public class TaskController {
         this.taskRepository = taskRepository;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/lists")
     public Collection<Task> tasksInCurrentList() {
         return taskRepository.findAll().stream()
                 .filter(task -> task.getList() == 1)
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/list")
+    @PostMapping("/lists")
     public Task post(@RequestBody Task task){
         taskRepository.save(task);
-        return taskRepository.findTaskByName(task.getName());
+        return taskRepository.findByName(task.getName());
     }
 }

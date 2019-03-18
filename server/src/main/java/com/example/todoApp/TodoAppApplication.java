@@ -19,7 +19,7 @@ public class TodoAppApplication {
 	@Bean
 	ApplicationRunner init(TaskRepository repository) {
 		return args -> {
-			Stream.of("Task 1", "Some task 2", "Another task 3", "task... 4").forEach(name -> {
+			Stream.of("Task", "Some_task", "Another_task", "task...").forEach(name -> {
 				Task task = new Task();
 				task.setName(name);
 				task.setList(1);

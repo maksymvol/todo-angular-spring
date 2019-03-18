@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TasksServiceService} from '../tasks-service.service';
-import {TaskService} from '../shared/task/task.service';
 
 @Component({
   selector: 'app-tasks-list',
@@ -9,23 +8,15 @@ import {TaskService} from '../shared/task/task.service';
 })
 export class TasksListComponent implements OnInit {
   inputValue = '';
-  private tasks: Array<any>;
 
-  constructor(private tasksService: TasksServiceService, private taskService: TaskService) {
-  }
-
-  ngOnInit() {
-    this.taskService.getAll().subscribe(data => {
-      this.tasks = data;
-    });
+  constructor(private tasksService: TasksServiceService) {
   }
 
   addNewTask() {
     if (this.inputValue === '') {
       alert('Please type your task before adding it');
     } else {
-      this.taskService.addNewTask(this.inputValue).subscribe(data => console.log(data));
-      // this.tasksService.addNewTask(this.inputValue);
+      this.tasksService.addNewTask(this.inputValue);
       this.inputValue = '';
     }
   }
@@ -44,4 +35,8 @@ export class TasksListComponent implements OnInit {
       this.addNewTask();
     }
   }
+
+  ngOnInit() {
+  }
+
 }
