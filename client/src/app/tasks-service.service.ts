@@ -21,7 +21,8 @@ export class TasksServiceService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.getTasksFromDB().subscribe(data => this.tasks = data);
-    this.getListsFromDB().subscribe(data => this.lists = data);
+    this.getListsFromDB().subscribe(data => this.lists = data, (e) => {},
+      () => this.changeCurrentListIdByName(this.router.url.split('/')[2]));
   }
 
   // SERVER HANDLERS
@@ -68,7 +69,7 @@ export class TasksServiceService {
     const task = new Task(newId, name, this.currentListId, false);
 
     this.postDataToDB(task, 'tasks').subscribe((data: List) => console.log(data), (e) => {},
-        () => {this.getTasksFromDB().subscribe(data => this.tasks = data); });
+      () => {this.getTasksFromDB().subscribe(data => this.tasks = data); });
   }
 
   deleteTask(index: number) {
@@ -107,19 +108,11 @@ export class TasksServiceService {
 
     this.postDataToDB(newList, 'lists').subscribe((data: List) => {console.log(data); }, (error) => {console.log(error); },
       () => this.getTasksFromDB().subscribe(data => {this.tasks = data; }, (error) => {console.log(error); },
-        () => {this.getListsFromDB().subscribe(data => this.lists = data); }));
-    this.changeCurrentList(newId);
+        () => {this.getListsFromDB().subscribe(data => this.lists = data, (e) => {},
+          () => {this.changeCurrentList(newId); }); }));
   }
 
   deleteList(id) {
-    let offset = -1;
-    for (let i = 0; i < this.lists.length; i++) {
-      if (id === this.lists[i].id) {
-        offset = i;
-        break;
-      }
-    }
-    this.lists.splice(offset, 1);
 
     for (let i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].list === id) {
@@ -132,14 +125,14 @@ export class TasksServiceService {
     this.changeCurrentList(id - 1);
   }
 
-  changeCurrentList(index) {
-    this.currentListId = index;
-    const i = this.lists.findIndex(list => list.id === index);
+  changeCurrentList(id) {
+    this.currentListId = id;
+    const i = this.getIndexById(this.lists, id);
     this.router.navigateByUrl('/lists/' + this.lists[i].name);
   }
 
   pinList(id) {
-    const i = this.lists.findIndex(list => list.id === id);
+    const i = this.getIndexById(this.lists, id);
     const newList = this.lists[i];
     newList.pinned = !newList.pinned;
     this.makePatchToDB('lists', id, newList).subscribe((data: Task) => console.log(data),
@@ -168,5 +161,9 @@ export class TasksServiceService {
         break;
       }
     }
+  }
+
+  private getIndexById(target, id: number) {
+    return target.findIndex(list => list.id === id);
   }
 }

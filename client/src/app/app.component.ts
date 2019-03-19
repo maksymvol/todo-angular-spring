@@ -7,9 +7,6 @@ import {TasksServiceService} from './tasks-service.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = '~TODO app~';
-
-
   constructor() {
   }
 }

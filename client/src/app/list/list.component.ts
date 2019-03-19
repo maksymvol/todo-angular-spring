@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TasksServiceService} from '../tasks-service.service';
 
 @Component({
@@ -9,7 +9,7 @@ import {TasksServiceService} from '../tasks-service.service';
 export class ListComponent implements OnInit {
 
   @Input() list: any;
-  @Input() index: number;
+  @Output() deleteList = new EventEmitter();
 
   constructor(private tasksService: TasksServiceService) {
   }
@@ -18,6 +18,6 @@ export class ListComponent implements OnInit {
   }
 
   deleteListClicked() {
-    this.tasksService.deleteList(this.index);
+    this.deleteList.emit(this.list.id);
   }
 }

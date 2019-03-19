@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TasksServiceService} from '../tasks-service.service';
+import {NewItemAddingInputComponent} from '../new-item-adding-input/new-item-adding-input.component';
 
 @Component({
   selector: 'app-lists-list',
@@ -7,8 +8,8 @@ import {TasksServiceService} from '../tasks-service.service';
   styleUrls: ['./lists-list.component.css']
 })
 export class ListsListComponent implements OnInit {
-
-  inputValue = '';
+  @ViewChild(NewItemAddingInputComponent) inputChild: NewItemAddingInputComponent;
+  private placeholder = 'Title';
 
   constructor(private tasksService: TasksServiceService) {
   }
@@ -17,11 +18,14 @@ export class ListsListComponent implements OnInit {
   }
 
   addNewList() {
-    if (this.inputValue === '') {
+    const value = this.inputChild.inputValue;
+    if (value === '') {
       alert('Please type new list name before adding it');
+    } else if (value.length > 27) {
+      alert('Ops! This name is very long - max: 27 symbols');
     } else {
-      this.tasksService.addNewList(this.inputValue);
-      this.inputValue = '';
+      this.tasksService.addNewList(value);
+      this.inputChild.inputValue = '';
     }
   }
 
@@ -33,7 +37,11 @@ export class ListsListComponent implements OnInit {
     if (event.key === 'Enter') {
       this.addNewList();
     } else if (event.key === 'Escape') {
-      this.inputValue = '';
+      this.inputChild.inputValue = '';
     }
+  }
+
+  deleteList(index) {
+    this.tasksService.deleteList(index);
   }
 }

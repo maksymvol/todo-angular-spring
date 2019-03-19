@@ -1,8 +1,8 @@
-<header>
-  <input [(ngModel)]="inputValue" type="text" id="input-text" placeholder="There would be your task..."
-         (keydown)="onInputKeydown($event)">
-  <span (click)="addNewTask()" id="task-add-button">Add</span>
-</header>
+<app-new-item-adding-input
+  [placeholder]="placeholder"
+  (onInputKeydown)="onInputKeydown($event)"
+  (spanClick)="addNewTask()">
+</app-new-item-adding-input>
 
 <ul
   *ngIf="isAnyTasksInCurrentList() === true else tasksAmount0"
@@ -10,7 +10,10 @@
 >
   <app-task *ngFor="let task of tasksService.tasks; let i = index;"
             [index]="i"
-            [task]="task">
+            [task]="task"
+            (taskClicked)="handleTaskClicked($event)"
+            (changeTaskName)="handleChangeTaskName($event)"
+            (deleteTask)="handleDeleteTask($event)">
   </app-task>
 </ul>
 

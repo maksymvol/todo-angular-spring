@@ -12,7 +12,9 @@ export class TaskComponent implements OnInit {
 
   @Input() task: any;
   @Input() index: number;
-  @Output() deleteTaskHandle = new EventEmitter();
+  @Output() deleteTask = new EventEmitter();
+  @Output() taskClicked = new EventEmitter();
+  @Output() changeTaskName = new EventEmitter();
 
   constructor(private tasksService: TasksServiceService) {
   }
@@ -21,7 +23,7 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTaskClicked() {
-    this.tasksService.deleteTask(this.index);
+    this.deleteTask.emit(this.index);
   }
 
   editTaskClicked() {
@@ -35,11 +37,11 @@ export class TaskComponent implements OnInit {
 
   saveEditChanges() {
     this.isEditing = false;
-    this.tasksService.changeTaskName(this.inputValue, this.index);
+    this.changeTaskName.emit({name: this.inputValue, index: this.index});
   }
 
-  taskClicked() {
-    this.tasksService.toggleTaskChecked(this.index);
+  taskClickedHandle() {
+    this.taskClicked.emit(this.index);
   }
 
   onInputKeydown(event) {
