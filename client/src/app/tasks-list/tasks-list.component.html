@@ -8,7 +8,7 @@
   *ngIf="isAnyTasksInCurrentList() === true else tasksAmount0"
   id="tasks"
 >
-  <app-task *ngFor="let task of tasksService.tasks; let i = index;"
+  <app-task *ngFor="let task of tasksService.getTasksSortedById(); let i = index;"
             [index]="i"
             [task]="task"
             (taskClicked)="handleTaskClicked($event)"

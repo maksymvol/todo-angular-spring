@@ -6,7 +6,7 @@
 
 <ul *ngIf="tasksService.lists.length > 0"
     id="task-lists">
-  <app-list *ngFor="let list of tasksService.lists"
+  <app-list *ngFor="let list of tasksService.getListsSortedById()"
             [list]="list"
             (deleteList)="deleteList($event)"
             (click)="changeCurrentList(list.id)">

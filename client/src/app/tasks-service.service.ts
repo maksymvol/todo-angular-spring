@@ -163,6 +163,14 @@ export class TasksServiceService {
     }
   }
 
+  getTasksSortedById() {
+    return this.tasks.sort((x, y) => {return x.id - y.id; });
+  }
+
+  getListsSortedById() {
+      return this.lists.sort((x, y) => {return x.id - y.id; });
+  }
+
   private getIndexById(target, id: number) {
     return target.findIndex(list => list.id === id);
   }
