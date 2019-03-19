@@ -1,0 +1,22 @@
+<app-new-item-adding-input
+  [placeholder]="placeholder"
+  (onInputKeydown)="onInputKeydown($event)"
+  (spanClick)="addNewTask()">
+</app-new-item-adding-input>
+
+<ul
+  *ngIf="isAnyTasksInCurrentList() === true else tasksAmount0"
+  id="tasks"
+>
+  <app-task *ngFor="let task of tasksService.tasks; let i = index;"
+            [index]="i"
+            [task]="task"
+            (taskClicked)="handleTaskClicked($event)"
+            (changeTaskName)="handleChangeTaskName($event)"
+            (deleteTask)="handleDeleteTask($event)">
+  </app-task>
+</ul>
+
+<ng-template #tasksAmount0>
+  <h4>This list is empty. You can add new task by typing it and clicking 'Add' button</h4>
+</ng-template>

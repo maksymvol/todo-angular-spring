@@ -1,6 +1,5 @@
 package com.example.todoApp.controllers;
 
-import com.example.todoApp.repo.List;
 import com.example.todoApp.repo.Task;
 import com.example.todoApp.repo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;

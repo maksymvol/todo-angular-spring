@@ -1,7 +1,5 @@
 package com.example.todoApp.repo;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Entity;
@@ -20,12 +18,6 @@ public class Task {
     private boolean checked;
 
     public Task() {
-    }
-
-    public Task(@NonNull String name, @NonNull int list, boolean checked) {
-        this.name = name;
-        this.list = list;
-        this.checked = checked;
     }
 
     public String getName() {
