@@ -6,25 +6,12 @@
   <div id="lists-preview-container">
 
     <div *ngFor="let list of tasksService.getListSortedByPin(); let i = index">
-      <div id="card">
-        <div class="pin__a">
-          <div [attr.data-pin]="list.pinned" class="pin">
-            📌
-          </div>
-        </div>
-        <div id="card-header" (click)="pinList(list.id)">
-          <h1 id="list-name">{{list.name}}</h1>
-          <hr>
-        </div>
-        <div (click)="cardClicked(i)">
-          <ul>
-            <li *ngFor="let task of tasksService.getTasksInList(list.id, 5, false)">
-              {{task.name}}
-            </li>
-          </ul>
-          <span id="more">...</span>
-        </div>
-      </div>
+      <app-list-card
+        [list]="list"
+        [tasks]="tasksService.getTasksInList(list.id, 5, false)"
+        (cardClicked)="cardClicked($event)"
+        (pinList)="pinList($event)">
+      </app-list-card>
     </div>
 
   </div>

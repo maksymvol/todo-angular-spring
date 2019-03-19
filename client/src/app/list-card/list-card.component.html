@@ -1,0 +1,19 @@
+<div id="card">
+  <div class="pin__a">
+    <div [attr.data-pin]="list.pinned" class="pin">
+      📌
+    </div>
+  </div>
+  <div id="card-header" (click)="handlePinList(list.id)">
+    <h1 id="list-name">{{list.name}}</h1>
+    <hr>
+  </div>
+  <div (click)="handleCardClicked()">
+    <ul>
+      <li *ngFor="let task of tasks">
+        {{task.name}}
+      </li>
+    </ul>
+    <span id="more">...</span>
+  </div>
+</div>

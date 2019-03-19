@@ -1,4 +1,4 @@
-<li *ngIf="list.id === tasksService.currentListId else notCurrentList" [class.currentList]="true">
+<li *ngIf="list.id === currentListId else notCurrentList" [class.currentList]="true">
   {{list.name}}
   <span class="task-delete-button"
         (click)="deleteListClicked()">

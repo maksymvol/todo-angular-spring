@@ -29,8 +29,8 @@ export class ListsListComponent implements OnInit {
     }
   }
 
-  changeCurrentList(index) {
-    this.tasksService.changeCurrentList(index);
+  changeCurrentList(list) {
+    this.tasksService.changeCurrentList(list);
   }
 
   onInputKeydown(event) {
@@ -41,7 +41,7 @@ export class ListsListComponent implements OnInit {
     }
   }
 
-  deleteList(index) {
-    this.tasksService.deleteList(index);
+  deleteList(list) {
+    this.tasksService.deleteList(list);
   }
 }

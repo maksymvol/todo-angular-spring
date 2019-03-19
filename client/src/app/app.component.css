@@ -1,17 +1,4 @@
 #app-container {
-  display: flex;
   padding-right: 5%;
   padding-left: 5%;
-}
-
-#task-lists-container {
-  /*padding-top: 2%;*/
-}
-
-#app-name {
-  text-align: center;
-}
-
-#tasks-current-list-container {
-  flex: 1;
 }

@@ -15,6 +15,7 @@ import {ListsPreviewComponent} from './lists-preview/lists-preview.component';
 import {AppRoutingModule} from './app-routing.module';
 import {CurrentListComponent} from './current-list/current-list.component';
 import {NewItemAddingInputComponent} from './new-item-adding-input/new-item-adding-input.component';
+import { ListCardComponent } from './list-card/list-card.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {NewItemAddingInputComponent} from './new-item-adding-input/new-item-addi
     PageNotFoundComponent,
     ListsPreviewComponent,
     CurrentListComponent,
-    NewItemAddingInputComponent
+    NewItemAddingInputComponent,
+    ListCardComponent
   ],
   imports: [
     BrowserModule,

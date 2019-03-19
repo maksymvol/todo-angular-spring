@@ -11,6 +11,7 @@
   <app-task *ngFor="let task of tasksService.getTasksSortedById(); let i = index;"
             [index]="i"
             [task]="task"
+            [currentListId]="tasksService.currentListId"
             (taskClicked)="handleTaskClicked($event)"
             (changeTaskName)="handleChangeTaskName($event)"
             (deleteTask)="handleDeleteTask($event)">
