@@ -14,8 +14,10 @@ export class ListsPreviewComponent implements OnInit {
   ngOnInit() {
   }
 
-  cardClicked(listIndex) {
-    this.tasksService.navigateToList(this.tasksService.lists[listIndex]);
+  cardClicked(id) {
+    const index = this.tasksService.lists.findIndex(list => list.id === id);
+    const list = this.tasksService.lists[index];
+    this.tasksService.navigateToList(list);
   }
 
   pinList(id: number) {

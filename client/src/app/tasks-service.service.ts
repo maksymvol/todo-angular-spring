@@ -103,6 +103,7 @@ export class TasksServiceService {
   }
 
   navigateToList(list: List) {
+    console.log(list);
     this.router.navigateByUrl('/lists/' + list.name);
     this.changeCurrentList(list);
   }
