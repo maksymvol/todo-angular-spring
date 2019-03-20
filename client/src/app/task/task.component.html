@@ -1,6 +1,6 @@
 <li *ngIf="task.checked === true && isEditing === false && task.list === currentListId else taskNotChecked"
     [class.checked]="true"
-    (click)="taskClickedHandle(i)">
+    (click)="taskClickedHandle()">
     {{task.name}}
     <span class="task-edit-button"
           (click)="editTaskClicked()">
@@ -15,7 +15,7 @@
 <ng-template #taskNotChecked>
     <li *ngIf="task.list === currentListId && isEditing === false else editing"
         [class.checked]="false"
-        (click)="taskClickedHandle(i)">
+        (click)="taskClickedHandle()">
         {{task.name}}
         <span class="task-edit-button"
               (click)="editTaskClicked()">

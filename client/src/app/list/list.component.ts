@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TasksServiceService} from '../tasks-service.service';
 
 @Component({
   selector: 'app-list',

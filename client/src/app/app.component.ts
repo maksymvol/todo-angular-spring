@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {TasksServiceService} from './tasks-service.service';
 
 @Component({
   selector: 'app-root',
