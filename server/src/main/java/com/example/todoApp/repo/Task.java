@@ -2,10 +2,7 @@ package com.example.todoApp.repo;
 
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(schema = "todoapp", name = "task")
@@ -13,8 +10,15 @@ public class Task {
     @Id
     @GeneratedValue
     private Long id;
-    private @NonNull String name;
-    private @NonNull int list;
+
+    @NonNull
+    private String name;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    @NonNull
+    private TodoList todoList;
+
     private boolean checked;
 
     public Task() {
@@ -36,12 +40,12 @@ public class Task {
         this.id = id;
     }
 
-    public int getList() {
-        return list;
+    public TodoList getTodoList() {
+        return todoList;
     }
 
-    public void setList(int list) {
-        this.list = list;
+    public void setTodoList(TodoList todoList) {
+        this.todoList = todoList;
     }
 
     public boolean isChecked() {

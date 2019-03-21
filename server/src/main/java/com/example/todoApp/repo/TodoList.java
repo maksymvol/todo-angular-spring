@@ -1,13 +1,14 @@
 package com.example.todoApp.repo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(schema = "todoapp", name = "list")
-public class List {
+public class TodoList {
     @Id
     @GeneratedValue
     private Long id;
@@ -15,10 +16,22 @@ public class List {
     private String name;
     private boolean pinned;
 
-    public List() {
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "todoList")
+    private Set<Task> tasks = new HashSet<>();
+
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public List(String name, boolean pinned) {
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    public TodoList() {
+    }
+
+    public TodoList(String name, boolean pinned) {
         this.name = name;
         this.pinned = pinned;
     }

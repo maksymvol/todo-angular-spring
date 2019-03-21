@@ -1,10 +1,10 @@
 package com.example.todoApp.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
-public interface ListRepository extends JpaRepository<List, Long> {
+@Repository
+public interface ListRepository extends JpaRepository<TodoList, Long> {
 
-    List findByName(String name);
+    TodoList findByName(String name);
 }
