@@ -15,8 +15,8 @@ export class TasksServiceService {
   lists: List[] = [{id: 0, name: 'name', pinned: false}];
 
   constructor(private serverService: ServerService, private router: Router) {
-    this.serverService.getTasksFromDB().subscribe(data => this.tasks = data);
-    this.serverService.getListsFromDB().subscribe(data => this.lists = data, (e) => {},
+    this.serverService.getTasks().subscribe(data => this.tasks = data);
+    this.serverService.getLists().subscribe(data => this.lists = data, (e) => {},
       () => this.changeCurrentListIdByName(this.router.url.split('/')[2]));
   }
 
@@ -37,27 +37,27 @@ export class TasksServiceService {
     newId++;
     const task = {id: newId, name: taskName, list: this.currentListId, checked: false};
 
-    this.serverService.postDataToDB(task, 'tasks').subscribe((data: List) => console.log(data), (e) => {},
-      () => {this.serverService.getTasksFromDB().subscribe(data => this.tasks = data); });
+    this.serverService.postData(task, 'tasks').subscribe((data: List) => console.log(data), (e) => {},
+      () => {this.serverService.getTasks().subscribe(data => this.tasks = data); });
   }
 
   deleteTask(task) {
-    this.serverService.deleteDataFromDB('tasks', task.id).subscribe((data: Task) => {console.log(data); }, (e) => {console.log(e); },
-      () => {this.serverService.getTasksFromDB().subscribe(data => this.tasks = data); });
+    this.serverService.deleteData('tasks', task.id).subscribe((data: Task) => {console.log(data); }, (e) => {console.log(e); },
+      () => {this.serverService.getTasks().subscribe(data => this.tasks = data); });
   }
 
   toggleTaskChecked(task) {
     task.checked = !task.checked;
-    this.serverService.makePatchToDB('tasks', task.id, task).subscribe((data: Task) => console.log(data),
+    this.serverService.makePatch('tasks', task.id, task).subscribe((data: Task) => console.log(data),
       (error) => {console.log(error); },
-      () => {this.serverService.getTasksFromDB().subscribe(data => this.tasks = data); });
+      () => {this.serverService.getTasks().subscribe(data => this.tasks = data); });
   }
 
   changeTaskName(name, task) {
     task.name = name;
-    this.serverService.makePatchToDB('tasks', task.id, task).subscribe((data: Task) => console.log(data),
+    this.serverService.makePatch('tasks', task.id, task).subscribe((data: Task) => console.log(data),
       (error) => {console.log(error); },
-      () => {this.serverService.getTasksFromDB().subscribe(data => this.tasks = data); });
+      () => {this.serverService.getTasks().subscribe(data => this.tasks = data); });
   }
   // LISTS
   addNewList(listName) {
@@ -71,22 +71,16 @@ export class TasksServiceService {
 
     const newList = {id: newId, name: listName, pinned: false};
 
-    this.serverService.postDataToDB(newList, 'lists').subscribe((data: List) => {console.log(data); }, (error) => {console.log(error); },
-      () => this.serverService.getTasksFromDB().subscribe(data => {this.tasks = data; }, (error) => {console.log(error); },
-        () => {this.serverService.getListsFromDB().subscribe(data => this.lists = data, (e) => {},
+    this.serverService.postData(newList, 'lists').subscribe((data: List) => {console.log(data); }, (error) => {console.log(error); },
+      () => this.serverService.getTasks().subscribe(data => {this.tasks = data; }, (error) => {console.log(error); },
+        () => {this.serverService.getLists().subscribe(data => this.lists = data, (e) => {},
           () => {this.changeCurrentList(newList); }); }));
   }
 
   deleteList(list) {
-
-    for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].list === list.id) {
-        this.serverService.deleteDataFromDB('tasks', this.tasks[i].id).subscribe((data: Task) => {console.log(data); });
-      }
-    }
-    this.serverService.deleteDataFromDB('lists', list.id).subscribe((data: List) => {console.log(data); }, (error) => {console.log(error);},
-      () => this.serverService.getTasksFromDB().subscribe(data => {this.tasks = data; }, (error) => {console.log(error); },
-        () => {this.serverService.getListsFromDB().subscribe(data => this.lists = data); }));
+    this.serverService.deleteData('lists', list.id).subscribe((data: List) => {console.log(data); }, (error) => {console.log(error); },
+      () => this.serverService.getTasks().subscribe(data => {this.tasks = data; }, (error) => {console.log(error); },
+        () => {this.serverService.getLists().subscribe(data => this.lists = data); }));
     this.changeCurrentList(list);
   }
 
@@ -97,19 +91,23 @@ export class TasksServiceService {
 
   pinList(list: List) {
     list.pinned = !list.pinned;
-    this.serverService.makePatchToDB('lists', list.id, list).subscribe((data: Task) => console.log(data),
+    this.serverService.makePatch('lists', list.id, list).subscribe((data: Task) => console.log(data),
       (error) => {console.log(error); },
-      () => {this.serverService.getListsFromDB().subscribe(data => this.lists = data); });
+      () => {this.serverService.getLists().subscribe(data => this.lists = data); });
   }
 
   navigateToList(list: List) {
     console.log(list);
+    if (this.router.url.split('/').length === 2) {
+      this.serverService.getTasks().subscribe(data => {this.tasks = data; });
+    }
     this.router.navigateByUrl('/lists/' + list.name);
     this.changeCurrentList(list);
   }
 
   navigateToPreview() {
     this.router.navigateByUrl('/lists');
+    this.serverService.getTasks().subscribe(data => {this.tasks = data; });
   }
   getListSortedByPin() {
     return this.lists.sort(function(x, y) {return (x.pinned === y.pinned) ? 0 : x.pinned ? -1 : 1; });

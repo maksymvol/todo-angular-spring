@@ -1,9 +1,7 @@
 package com.example.todoApp.controllers;
 
-import com.example.todoApp.repo.Task;
-import com.example.todoApp.repo.TaskRepository;
-import com.example.todoApp.repo.TodoList;
 import com.example.todoApp.repo.ListRepository;
+import com.example.todoApp.repo.TodoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +14,6 @@ public class ListController {
 
     @Autowired
     private ListRepository listRepository;
-    @Autowired
-    private TaskRepository taskRepository;
 
     @GetMapping
     public Collection<TodoList> getLists() {

@@ -20,13 +20,18 @@ public class TaskController {
     @Autowired
     private ListRepository listRepository;
 
-    public TaskController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
-
     @GetMapping
     public List<TaskTransfer> tasksInCurrentList() {
-        return taskRepository.findAll().stream().map(TaskTransfer::toTransfer).collect(Collectors.toList());
+        return taskRepository.findAll().stream()
+                .map(TaskTransfer::toTransfer)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/preview")
+    public List<TaskTransfer> getListsPreview() {
+        return taskRepository.findByChecked(false).stream()
+                .map(TaskTransfer::toTransfer)
+                .collect(Collectors.toList());
     }
 
     @PostMapping
